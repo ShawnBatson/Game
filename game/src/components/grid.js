@@ -1,6 +1,5 @@
 import React from "react";
-import "../css/game.css";
-
+import "../App.css";
 const cellSize = 20;
 const gridWidth = 800;
 const gridHeight = 800;
@@ -10,8 +9,12 @@ const Game = () => {
         <div>
             {" "}
             <div
-                className="Grid"
-                style={{ width: gridWidth, height: gridHeight }}
+                className="grid"
+                style={{
+                    width: gridWidth,
+                    height: gridHeight,
+                    backgroundSize: `${cellSize}px ${cellSize}px`,
+                }}
             >
                 {" "}
             </div>{" "}

@@ -24,7 +24,7 @@ const Grid = () => {
             } else {
                 currentSize[1] = 40;
             }
-            setSize(currentSize[1]);
+            setSize(currentSize);
             setBoard(); //set the board
         }
     };
@@ -39,7 +39,7 @@ const Grid = () => {
             } else {
                 currentSize[0] = 40;
             }
-            setSize(currentSize[0]);
+            setSize(currentSize);
             setBoard(); // set the board
         }
     };
@@ -65,10 +65,11 @@ const Grid = () => {
     const run = () => {};
 
     const setBoard = () => {
-        let newBoard = [];
-        let cellRow = [];
+        let newBoard = []; //board
+        let cellRow = []; //cells pattern
 
         for (let i = 0; i < newSize.size[0]; i++) {
+            //create the cells with a double for loop, for both I and J, push the new rows/columns into cellrow
             for (let j = 0; j < newSize.size[1]; j++) {
                 cellRow.push(<Cell key={[i, j]} />);
             }
@@ -86,7 +87,7 @@ const Grid = () => {
         <div className="totalPage">
             <div className="header">
                 <div className="insideHeader">
-                    <div class="headerButtons">
+                    <div className="headerButtons">
                         <label className="label">Rows:</label>
                         <input
                             className="input"

@@ -6,41 +6,46 @@ const Grid = () => {
     // const totalBoard = [];
 
     const [newSize, setSize] = useState({
+        //make state for the grid size
         size: [40, 40],
     });
     const [newGame, setNewGame] = useState({
+        //make state for the game itself
         game: false,
     });
 
     const handleRowShift = (event) => {
+        // make a max row, mutate the grid beneath that max
         if (!newGame.game) {
-            const currentSize = newSize.size;
+            const currentSize = newSize.size; //if no new game, set the board to newsize
 
             if (event.target.value < 40) {
-                currentSize[1] = event.target.value;
+                currentSize[1] = event.target.value; //change the rows otherwise
             } else {
                 currentSize[1] = 40;
             }
             setSize(currentSize[1]);
-            setBoard();
+            setBoard(); //set the board
         }
     };
 
     const handleColumnShift = (event) => {
+        // make a max column, mutate the grid beneath that max
         if (!newGame.game) {
-            const currentSize = newSize.size;
+            const currentSize = newSize.size; // if no new game, set the board to newsize
 
             if (event.target.value < 40) {
-                currentSize[0] = event.target.value;
+                currentSize[0] = event.target.value; //change the columns otherwise
             } else {
                 currentSize[0] = 40;
             }
             setSize(currentSize[0]);
-            setBoard();
+            setBoard(); // set the board
         }
     };
 
     const start = () => {
+        //initiating the game,
         if (!newGame.game) {
             setNewGame({ game: true }, () => {
                 newGame.intervalRef = setInterval(() => run(), 10);
@@ -49,6 +54,7 @@ const Grid = () => {
     };
 
     const stop = () => {
+        //stopping the game
         setNewGame({ game: false }, () => {
             if (newGame.intervalRef) {
                 clearInterval(newGame.intervalRef);

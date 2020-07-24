@@ -2,10 +2,90 @@
     text-align: center;
 }
 
+.totalPage {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.submit {
+    width: 50%;
+    margin: 5px;
+}
+
+.insideHeader {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width: 0, auto;
+    /* padding: 20px 20px 0 20px; */
+}
+
+.headerButtons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+.label {
+    display: flex;
+    /* margin-bottom: 16px; */
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.input {
+    margin-left: 0.5%;
+    width: 10%;
+    padding-right: 5%;
+}
+
+.submit {
+    width: 5%;
+}
+
+.buttonsTotal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+/* 
 .grid {
     position: relative;
     margin: 0 auto;
+    margin-top: 0;
     background-color: #000;
     background-image: linear-gradient(#333 1px, transparent 1px),
         linear-gradient(90deg, #333 1px, transparent 1px);
+} */
+
+.cellBox {
+    display: flex;
+    flex: 1;
+    padding: 0.5%;
+    border: 1px solid white;
+    background-color: black;
+    height: 1rem;
+}
+
+.row {
+    display: flex;
+    border: 1px solid black;
+    padding: 0;
+    margin: 0;
+}
+
+.boardBox {
+    margin-left: 13%;
+    margin-top: 5%;
+    width: 75%;
 }

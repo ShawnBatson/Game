@@ -1,56 +1,121 @@
 import React, { useState } from "react";
+import Cell from "./cell";
 import "../App.css";
-const cellSize = 20;
-const gridWidth = 800;
-const gridHeight = 800;
 
 const Grid = () => {
-    const totalBoard = [];
+    // const totalBoard = [];
 
-    const [board, setBoard] = useState({
-        gridBoard: {
-            rows: gridHeight / cellSize,
-            columns: gridWidth / cellSize,
-            boardCells: [],
-            boardMain: null,
-        },
+    const [newSize, setSize] = useState({
+        size: [40, 40],
+    });
+    const [newGame, setNewGame] = useState({
+        game: false,
     });
 
-    const makeEmptyBoard = () => {
-        let board = [];
-        for (let y = 0; y < board.gridBoard.rows; y++) {
-            board.gridBoard.boardMain[y] = [];
-            for (let x = 0; x < this.cols; x++) {
-                board[y][x] = false;
+    const handleRowShift = (event) => {
+        if (!newGame.game) {
+            const currentSize = newSize.size;
+
+            if (event.target.value < 40) {
+                currentSize[1] = event.target.value;
+            } else {
+                currentSize[1] = 40;
             }
+            setSize(currentSize[1]);
+            setBoard();
         }
-        return board;
     };
-    const makeCells = () => {
-        let cells = [];
-        for (let y = 0; y < board.gridBoard.rows; y++) {
-            for (let x = 0; board.gridBoard.columns; x++) {
-                if (board.gridBoard.boardMain[y][x]) {
-                    cells.push({ x, y });
-                }
+
+    const handleColumnShift = (event) => {
+        if (!newGame.game) {
+            const currentSize = newSize.size;
+
+            if (event.target.value < 40) {
+                currentSize[0] = event.target.value;
+            } else {
+                currentSize[0] = 40;
             }
+            setSize(currentSize[0]);
+            setBoard();
         }
-        return makeCells;
+    };
+
+    const start = () => {
+        if (!newGame.game) {
+            setNewGame({ game: true }, () => {
+                newGame.intervalRef = setInterval(() => run(), 10);
+            });
+        }
+    };
+
+    const stop = () => {
+        setNewGame({ game: false }, () => {
+            if (newGame.intervalRef) {
+                clearInterval(newGame.intervalRef);
+            }
+        });
+    };
+
+    const run = () => {};
+
+    const setBoard = () => {
+        let newBoard = [];
+        let cellRow = [];
+
+        for (let i = 0; i < newSize.size[0]; i++) {
+            for (let j = 0; j < newSize.size[1]; j++) {
+                cellRow.push(<Cell key={[i, j]} />);
+            }
+            newBoard.push(
+                <div className="row" key={i}>
+                    {cellRow}
+                </div>
+            );
+            cellRow = [];
+        }
+        return newBoard;
     };
 
     return (
-        <div>
-            {" "}
-            <div
-                className="grid"
-                style={{
-                    width: gridWidth,
-                    height: gridHeight,
-                    backgroundSize: `${cellSize}px ${cellSize}px`,
-                }}
-            >
-                {" "}
-            </div>{" "}
+        <div className="totalPage">
+            <div className="header">
+                <div className="insideHeader">
+                    <div class="headerButtons">
+                        <label className="label">Rows:</label>
+                        <input
+                            className="input"
+                            type="text"
+                            value={setSize[1]}
+                            onChange={handleRowShift}
+                        />
+                        <label className="label">Columns:</label>
+                        <input
+                            className="input"
+                            type="text"
+                            value={setSize[0]}
+                            onChange={handleColumnShift}
+                        />
+                    </div>
+                    <div className="buttonsTotal">
+                        <button className="submit" onClick={start}>
+                            Start
+                        </button>
+                        <button className="submit" onClick={stop}>
+                            Stop
+                        </button>
+                    </div>
+                </div>
+                <div
+                    className="boardBox"
+                    // style={{
+                    //     width: gridWidth,
+                    //     height: gridHeight,
+                    //     backgroundSize: `${cellSize}px ${cellSize}px`,
+                    // }}
+                >
+                    {setBoard()}
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cell from "./cell";
+import Logic from "./logic";
 import "../App.css";
 
 const Grid = () => {
@@ -62,7 +63,9 @@ const Grid = () => {
         });
     };
 
-    const run = () => {};
+    const run = () => {
+        Logic();
+    };
 
     const setBoard = () => {
         let newBoard = []; //board
@@ -71,60 +74,74 @@ const Grid = () => {
         for (let i = 0; i < newSize.size[0]; i++) {
             //create the cells with a double for loop, for both I and J, push the new rows/columns into cellrow
             for (let j = 0; j < newSize.size[1]; j++) {
-                cellRow.push(<Cell key={[i, j]} />);
+                if (Logic.isAlive(i + " , " + j)) {
+                    cellRow.push(
+                        <Cell
+                            className="row"
+                            key={i}
+                            live={true}
+                            storeCell={this.storeCell.bind(this)}
+                        >
+                            {cellRow}
+                        </Cell>
+                    );
+                } else {
+                    cellRow.push(
+                        <Cell
+                            key={{ i, j }}
+                            pos={{ x: i, y: j }}
+                            live={true}
+                            storeCell={this.storeCell.bind(this)}
+                        />
+                    );
+                }
+                cellRow = [];
             }
-            newBoard.push(
-                <div className="row" key={i}>
-                    {cellRow}
-                </div>
-            );
-            cellRow = [];
+            return newBoard;
         }
-        return newBoard;
-    };
 
-    return (
-        <div className="totalPage">
-            <div className="header">
-                <div className="insideHeader">
-                    <div className="headerButtons">
-                        <label className="label">Rows:</label>
-                        <input
-                            className="input"
-                            type="text"
-                            value={setSize[1]}
-                            onChange={handleRowShift}
-                        />
-                        <label className="label">Columns:</label>
-                        <input
-                            className="input"
-                            type="text"
-                            value={setSize[0]}
-                            onChange={handleColumnShift}
-                        />
+        return (
+            <div className="totalPage">
+                <div className="header">
+                    <div className="insideHeader">
+                        <div className="headerButtons">
+                            <label className="label">Rows:</label>
+                            <input
+                                className="input"
+                                type="text"
+                                value={setSize[1]}
+                                onChange={handleRowShift}
+                            />
+                            <label className="label">Columns:</label>
+                            <input
+                                className="input"
+                                type="text"
+                                value={setSize[0]}
+                                onChange={handleColumnShift}
+                            />
+                        </div>
+                        <div className="buttonsTotal">
+                            <button className="submit" onClick={start}>
+                                Start
+                            </button>
+                            <button className="submit" onClick={stop}>
+                                Stop
+                            </button>
+                        </div>
                     </div>
-                    <div className="buttonsTotal">
-                        <button className="submit" onClick={start}>
-                            Start
-                        </button>
-                        <button className="submit" onClick={stop}>
-                            Stop
-                        </button>
+                    <div
+                        className="boardBox"
+                        // style={{
+                        //     width: gridWidth,
+                        //     height: gridHeight,
+                        //     backgroundSize: `${cellSize}px ${cellSize}px`,
+                        // }}
+                    >
+                        {setBoard()}
                     </div>
-                </div>
-                <div
-                    className="boardBox"
-                    // style={{
-                    //     width: gridWidth,
-                    //     height: gridHeight,
-                    //     backgroundSize: `${cellSize}px ${cellSize}px`,
-                    // }}
-                >
-                    {setBoard()}
                 </div>
             </div>
-        </div>
-    );
+        );
+    };
 };
-
 export default Grid;

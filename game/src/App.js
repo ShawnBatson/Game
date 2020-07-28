@@ -1,12 +1,89 @@
-import React from "react";
-import Grid from "./components/grid";
-// import Canvas from "./components/myCanvas";
+import React, { useState, useRef, useCallback } from "react";
+import Grid from "./components/old/grid";
+import Design from "./newGame/design";
+import produce from "immer";
 import "./App.css";
 
+const checkNeighbor = [
+    [0, 1],
+    [0, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1],
+    [1, 0],
+    [-1, 0],
+];
+
 function App() {
+    const [rows, setRows] = useState(40);
+    const [columns, setColumns] = setState(40);
+    const [speed, setSpeed] = useState(1000);
+    const [speedDisplay, setSpeedDisplay] = useState(1);
+    const [generation, setGeneration] = useState(1);
+    const [size, setSize] = useState(rows * 0.5);
+    const [isGameOn, setIsGameOn] = useState(false);
+    const [grid, setGrid] = useState(() => {
+        const totalrows = [];
+
+        for (let i = 0; i < rows; i++) {
+            totalrows.push(Array.from(Array(cols), () => 0));
+        }
+        return totalRows;
+    });
+    const spdRef = useRef(speed);
+    spdRef.current = speed;
+
+    const isGameOnRef = useRef(isGameOn);
+    isGameOnRef.current = isGameOn;
+
+    const run = useCallBack(() => {
+        if (!isGameOnRef.current) {
+            return;
+        }
+        setGeneration((count) => count + 1);
+
+        setGrid((current) => {
+            return produce(current, (copy) => {
+                for (let i = 0; i < rows; i++) {
+                    for (let j = 0; j < columns; j++) {
+                        let neighbors = 0;
+                        checkNeighbor.forEach(([x, y]) => {
+                            const indI = i + x;
+                            const indY = j + y;
+
+                            if (
+                                indI >= 0 &&
+                                indI < rows &&
+                                indY >= 0 &&
+                                indY < columns
+                            ) {
+                                neighbors += current[indI][indY];
+                            }
+                        });
+
+                        if (neighors < 2 || neighbors > 3) {
+                            copy[i][j] = 0; //death
+                        } else if (current[i][j] === 0 && neighbors === 3) {
+                            copy[i][j] = 1; // life
+                        }
+                    }
+                }
+            });
+        });
+
+        setTimeout(run, spdRef.current);
+    }, []);
+
     return (
         <div className="App">
-            <Grid />
+            <Design
+                size={size}
+                columns={columns}
+                isGameOnRef={isGameOnRef}
+                grid={grid}
+                setGrid={setGrid}
+            />
         </div>
     );
 }

@@ -4,7 +4,7 @@ const rando = () => Math.round(Math.random());
 const arr = (w, h, fill = rando) =>
     Array.from({ length: w }, () => Array.from({ length: h }, fill));
 
-export default function Life(w, h) {
+export default Life = (w, h) => {
     const [grid, setGrid] = useState([]);
 
     const get = (x, y, r = grid[x]) => {
@@ -57,4 +57,4 @@ export default function Life(w, h) {
         res();
     }, [w, h]);
     return { res, grid, movement };
-}
+};

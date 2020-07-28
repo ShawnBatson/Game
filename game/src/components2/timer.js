@@ -15,7 +15,7 @@ export default function Timer(cb, interval) {
     return {
         start,
         toggle() {
-            setStarted((currentState) => !currentState);
+            setStart((currentState) => !currentState);
         },
     };
 }

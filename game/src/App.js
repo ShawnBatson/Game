@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
-import Grid from "./components/old/grid";
 import Design from "./newGame/design";
+import Controls from "./newGame/control";
 import produce from "immer";
 import "./App.css";
 
@@ -75,7 +75,7 @@ function App() {
         });
 
         setTimeout(run, spdRef.current);
-    }, []);
+    }, [rows, columns]);
 
     return (
         <div className="App">
@@ -88,6 +88,22 @@ function App() {
                 setGrid={setGrid}
                 speedDisplay={speedDisplay}
                 generation={generation}
+            />
+            <Controls
+                rows={rows}
+                columns={columns}
+                speed={speed}
+                grid={grid}
+                setGrid={setGrid}
+                setSpeed={setSpeed}
+                spdRef={spdRef}
+                speedDisplay={speedDisplay}
+                setSpeedDisplay={setSpeedDisplay}
+                generation={generation}
+                setGeneration={setGeneration}
+                isGameOn={isGameOn}
+                setIsGameOn={setIsGameOn}
+                run={run}
             />
         </div>
     );

@@ -3,7 +3,7 @@ import produce from "immer";
 
 import "../App.css";
 
-const Design = ({ isGameOnRef, grid, setGrid, size, columns }) => {
+const Design = ({ live, dead, isGameOnRef, grid, setGrid, size, columns }) => {
     //possibly fix
 
     // const grid = () => {
@@ -42,7 +42,7 @@ const Design = ({ isGameOnRef, grid, setGrid, size, columns }) => {
                                     width: size,
                                     height: size,
                                     backgroundColor:
-                                        (grid[i][j] === 1) & "black",
+                                        grid[i][j] === 1 ? live : dead,
                                     border: "1px solid black",
                                 }}
                             />

@@ -33,6 +33,9 @@ function App() {
         return totalRows;
     });
 
+    const [live, setLive] = useState("#9966cc");
+    const [dead, setDead] = useState("#ffffff");
+
     const spdRef = useRef(speed);
     spdRef.current = speed;
 
@@ -88,6 +91,10 @@ function App() {
                 setGrid={setGrid}
                 speedDisplay={speedDisplay}
                 generation={generation}
+                live={live}
+                setLive={setLive}
+                dead={dead}
+                setDead={setDead}
             />
             <Controls
                 rows={rows}
@@ -104,6 +111,8 @@ function App() {
                 isGameOn={isGameOn}
                 setIsGameOn={setIsGameOn}
                 run={run}
+                setDead={setDead}
+                setLive={setLive}
             />
         </div>
     );

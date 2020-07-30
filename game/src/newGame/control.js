@@ -1,10 +1,6 @@
 import React from "react";
-import { clear } from "./functions";
-import { random } from "./functions";
 import produce from "immer";
 import "../App.css";
-
-// import { speedUp, speedDown } from "./";
 
 const Cont = ({
     rows,
@@ -53,6 +49,7 @@ const Cont = ({
     // };
 
     const handleLive = (e) => {
+        //change colors of the live
         if (isGameOn) {
             return;
         } else {
@@ -60,6 +57,7 @@ const Cont = ({
         }
     };
     const handleDead = (e) => {
+        //change colors of the dead
         if (isGameOn) {
             return;
         } else {
@@ -68,6 +66,7 @@ const Cont = ({
     };
 
     const speedUp = (speed, setSpeed, setSpeedDisplay) => {
+        //up the speed
         if (speed === 100) {
             setSpeed(speed);
         } else if (speed > 100) {
@@ -76,6 +75,7 @@ const Cont = ({
         }
     };
     const speedDown = (speed, setSpeed, setSpeedDisplay) => {
+        // down the speed
         if (speed === 1000) {
             setSpeed(speed);
         } else if (speed <= 2000) {
@@ -85,6 +85,7 @@ const Cont = ({
     };
 
     const clear = (
+        //clear the board
         setSpeed,
         setGrid,
         rows,
@@ -97,14 +98,15 @@ const Cont = ({
         if (isGameOnRef) {
             console.log("stop");
             alert("Board Cleared");
+            return;
         }
         setIsGameOn(false);
         setGeneration(1);
         setSpeedDisplay(1);
         setSpeed(1000);
 
-        setGrid((current) => {
-            return produce(current, (copy) => {
+        setGrid((curr) => {
+            return produce(curr, (copy) => {
                 for (let i = 0; i < rows; i++) {
                     for (let j = 0; j < columns; j++) {
                         copy[i][j] = 0;
@@ -115,6 +117,7 @@ const Cont = ({
     };
 
     const random = (
+        //randomize the board
         setIsGameOn,
         isGameOnRef,
         setGeneration,
@@ -122,7 +125,7 @@ const Cont = ({
         rows,
         columns
     ) => {
-        if (!isGameOnRef) {
+        if (isGameOnRef) {
             alert("stop");
             return;
         }
@@ -156,6 +159,7 @@ const Cont = ({
                 {isGameOnRef ? "Start" : "Stop"}{" "}
             </button> */}
             <button
+                className="clear"
                 onClick={() =>
                     clear(
                         setSpeed,
@@ -172,14 +176,15 @@ const Cont = ({
                 Clear
             </button>
             <button
+                className="random"
                 onClick={() =>
                     random(
                         setIsGameOn,
                         isGameOnRef,
                         setGeneration,
                         rows,
-                        columns,
-                        setGrid
+                        setGrid,
+                        columns
                     )
                 }
             >
@@ -189,18 +194,18 @@ const Cont = ({
                 <button
                     onClick={() => speedUp(speed, setSpeed, setSpeedDisplay)}
                 >
-                    Speed Up
+                    Speed +
                 </button>
                 <button
                     onClick={() => speedDown(speed, setSpeed, setSpeedDisplay)}
                 >
-                    Speed Down
+                    Speed -
                 </button>
                 <span className="display">Speed: {speedDisplay}</span>
             </div>
             <div className="colorContainer">
                 <div className="livingColor">
-                    <label htmlFor="livePick">Living Cell Color: </label>
+                    <label htmlFor="livePick">&nbsp; Live Cell Color: </label>
                     <input
                         name="livePick"
                         type="color"

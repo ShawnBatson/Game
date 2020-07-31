@@ -41,13 +41,13 @@ const Cont = ({
 
         setTimeout(() => {
             startButton.removeAttribute("disabled");
-        }, 500);
+        }, 10);
     };
 
     const stopButton = (e) => {
         setIsGameOn(false);
         setGrid(grid);
-        setSpeed(1000);
+        setSpeed(speed);
     };
 
     const handleLive = (e) => {

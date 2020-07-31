@@ -42,22 +42,8 @@ function App() {
     const isGameOnRef = useRef(isGameOn);
     isGameOnRef.current = isGameOn;
 
-    // const stopRun = (setIsGameOn, setGeneration, setSpeedDisplay, setSpeed) => {
-    //     setIsGameOn(false);
-    //     setGeneration(generation);
-    //     setSpeedDisplay(1);
-    //     setSpeed(1000);
-    // };
-
     const run = useCallback(() => {
         console.log(isGameOn);
-        // setIsGameOn(!isGameOn); // remove?
-
-        // if (isGameOn === true) {
-        //     // not original
-        //     setIsGameOn(false);
-        //     return;
-        // }
 
         if (!isGameOnRef.current) {
             return;
@@ -98,6 +84,52 @@ function App() {
 
     return (
         <div className="App">
+            <div className="rules">
+                <h1>Rules for Conways Game of Life</h1>
+                <h3>This is a timeless game. The rules are simple:</h3>
+                <ol>
+                    <lh className="header">Life and Death of Cells</lh>
+                    <li>
+                        Any living cell with two or three neighbors remains
+                        alive
+                    </li>
+                    <li>
+                        A dead cell with three living neighbors will become a
+                        living cell
+                    </li>
+                    <li>All other cells will die in the next generation.</li>
+                    <li>
+                        All other dead cells will remain dead in the next
+                        generation
+                    </li>
+                    <li>
+                        To start the game, double-click on the Start button to
+                        the left.
+                    </li>
+                    <li>
+                        You can click anywhere on the grid to create a "living"
+                        cell. You can also click a living cell to make it a dead
+                        cell, or click Random to randomize the grid
+                    </li>
+                    <li>
+                        You can also stop the automation, which will pause the
+                        grid where it stands.
+                    </li>
+                    <li>
+                        The Clear button clears the board, resetting both the
+                        speed and generation to 1.
+                    </li>
+                    <li>
+                        You can adjust the speed forward or backward as you
+                        please, before, during, or after the simulation has been
+                        started.
+                    </li>
+                    <li>
+                        Before or after you start the simuation, you can change
+                        the colors of both the living cells and dead cells.
+                    </li>
+                </ol>
+            </div>
             <Design
                 rows={rows}
                 size={size}

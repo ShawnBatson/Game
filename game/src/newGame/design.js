@@ -18,7 +18,7 @@ const Design = ({ live, dead, isGameOnRef, grid, setGrid, size, columns }) => {
     return (
         <div className="gameContainer">
             <div className="introduction">
-                <p className=" welcome">Welcome to Conway's Game of Life</p>
+                <p className=" welcome">Welcome to My Conway's Game of Life</p>
             </div>
             <div
                 className="container"

@@ -4,6 +4,7 @@ import "../App.css";
 
 const Cont = ({
     rows,
+    stopRun,
     setRows,
     setColumns,
     columns,
@@ -29,28 +30,30 @@ const Cont = ({
         const startButton = document.querySelector(".start");
         startButton.setAttribute("disabled", "true");
 
-        setIsGameOn(!isGameOnRef);
-        isGameOnRef = true;
-        run();
+        if (!isGameOnRef) {
+            setIsGameOn(true);
+            run();
+        }
+
+        // setIsGameOn(!isGameOnRef);
+        // isGameOnRef = true;
+        // run();
 
         setTimeout(() => {
             startButton.removeAttribute("disabled");
         }, 500);
     };
 
-    // const toggleStop = () => {
-    //     const startButton = document.querySelector(".start");
-    //     startButton.setAttribute("disabled", "true");
-
-    //     setIsGameOn(false);
-    //     setGeneration(generation);
-    //     setSpeedDisplay(speed);
-    //     setSpeed(1000);
-    // };
+    const stopButton = (e) => {
+        setIsGameOn(false);
+        setGrid(grid);
+        setSpeed(1000);
+    };
 
     const handleLive = (e) => {
         //change colors of the live
         if (isGameOn) {
+            // dont change
             return;
         } else {
             setLive(e.target.value);
@@ -59,6 +62,7 @@ const Cont = ({
     const handleDead = (e) => {
         //change colors of the dead
         if (isGameOn) {
+            // dont change
             return;
         } else {
             setDead(e.target.value);
@@ -117,23 +121,28 @@ const Cont = ({
     };
 
     const random = (
-        //randomize the board
+        //clear the board
+        setSpeed,
+        setGrid,
+        rows,
+        columns,
         setIsGameOn,
         isGameOnRef,
         setGeneration,
-        setGrid,
-        rows,
-        columns
+        setSpeedDisplay
     ) => {
         if (isGameOnRef) {
-            alert("stop");
+            console.log("stop");
+            alert("Board Cleared");
             return;
         }
         setIsGameOn(false);
         setGeneration(1);
+        setSpeedDisplay(1);
+        setSpeed(1000);
 
-        setGrid((current) => {
-            return produce(current, (copy) => {
+        setGrid((curr) => {
+            return produce(curr, (copy) => {
                 for (let i = 0; i < rows; i++) {
                     for (let j = 0; j < columns; j++) {
                         Math.random() < 0.5
@@ -153,11 +162,11 @@ const Cont = ({
                     toggleButton();
                 }}
             >
-                {isGameOnRef ? "Stop" : "Start"}
+                Start
             </button>
-            {/* <button className="start" onclick={() => toggleStop()}>
-                {isGameOnRef ? "Start" : "Stop"}{" "}
-            </button> */}
+            <button className="start" onClick={(e) => stopButton(e)}>
+                Stop
+            </button>
             <button
                 className="clear"
                 onClick={() =>
@@ -179,17 +188,20 @@ const Cont = ({
                 className="random"
                 onClick={() =>
                     random(
+                        setSpeed,
+                        setGrid,
+                        rows,
+                        columns,
                         setIsGameOn,
                         isGameOnRef,
                         setGeneration,
-                        rows,
-                        setGrid,
-                        columns
+                        setSpeedDisplay
                     )
                 }
             >
                 Random
             </button>
+
             <div className="speedCont">
                 <button
                     onClick={() => speedUp(speed, setSpeed, setSpeedDisplay)}
@@ -223,6 +235,7 @@ const Cont = ({
                     />
                 </div>
             </div>
+            <div className="sizeContainer"></div>
             <span>Generation: {generation}</span>
         </div>
     );

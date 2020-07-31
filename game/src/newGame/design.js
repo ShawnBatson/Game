@@ -37,7 +37,7 @@ const Design = ({ live, dead, isGameOnRef, grid, setGrid, size, columns }) => {
                                         if (isGameOnRef.current) {
                                             return;
                                         }
-                                        copy[i][j] = grid[i][j] === 1 ? 0 : 1;
+                                        copy[i][j] = grid[i][j] ? 0 : 1;
                                     });
                                     setGrid(newG);
                                 }}

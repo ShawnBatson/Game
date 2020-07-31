@@ -21,7 +21,7 @@ function App() {
     const [speed, setSpeed] = useState(1000);
     const [speedDisplay, setSpeedDisplay] = useState(1);
     const [generation, setGeneration] = useState(1);
-    const [size, setSize] = useState(rows * 0.5);
+    const [size, setSize] = useState(rows * 0.4);
     const [isGameOn, setIsGameOn] = useState(false);
 
     const [grid, setGrid] = useState(() => {
@@ -42,7 +42,23 @@ function App() {
     const isGameOnRef = useRef(isGameOn);
     isGameOnRef.current = isGameOn;
 
+    // const stopRun = (setIsGameOn, setGeneration, setSpeedDisplay, setSpeed) => {
+    //     setIsGameOn(false);
+    //     setGeneration(generation);
+    //     setSpeedDisplay(1);
+    //     setSpeed(1000);
+    // };
+
     const run = useCallback(() => {
+        console.log(isGameOn);
+        // setIsGameOn(!isGameOn); // remove?
+
+        // if (isGameOn === true) {
+        //     // not original
+        //     setIsGameOn(false);
+        //     return;
+        // }
+
         if (!isGameOnRef.current) {
             return;
         }
@@ -78,7 +94,7 @@ function App() {
         });
 
         setTimeout(run, spdRef.current);
-    }, [rows, columns]);
+    }, [rows, columns, isGameOn]);
 
     return (
         <div className="App">
@@ -87,6 +103,7 @@ function App() {
                 size={size}
                 columns={columns}
                 isGameOnRef={isGameOnRef}
+                isGameOn={isGameOn}
                 grid={grid}
                 setGrid={setGrid}
                 speedDisplay={speedDisplay}
@@ -97,7 +114,9 @@ function App() {
                 setDead={setDead}
             />
             <Controls
+                // stopRun={stopRun}
                 rows={rows}
+                setRows={setRows}
                 columns={columns}
                 speed={speed}
                 grid={grid}

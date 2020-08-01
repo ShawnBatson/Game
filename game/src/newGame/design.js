@@ -4,17 +4,6 @@ import produce from "immer";
 import "../App.css";
 
 const Design = ({ live, dead, isGameOnRef, grid, setGrid, size, columns }) => {
-    //possibly fix
-
-    // const grid = () => {
-    //     const newGrid = produce(grid, (copy) => {
-    //         if (isGameOnRef.current) {
-    //             return;
-    //         }
-    //         copy[i][j] = grid[i][j] ? 0 : 1;
-    //     });
-    //     setGrid(newGrid);
-    // };
     return (
         <div className="gameContainer">
             <div className="introduction">
